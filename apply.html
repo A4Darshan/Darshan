@@ -1,0 +1,111 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="apply.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Beans Homepage</title>
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet'>
+</head>
+
+<body>
+
+    <header id="navbar">
+        <div class="logo-container">
+            <a href="index.html"> <img id="logo" src="Images/hotbeans.png"></a>
+            <h1>Hot Beans Website</h1>
+        </div>
+
+        <nav>
+            <a href="team.html">Meet the Team</a>
+            <a href="apply.html">Apply</a>
+            <a href="courses.html">Courses</a>
+            <a href="jobspec.html">Job Specifications</a>
+        </nav>
+    </header>
+
+    <div class="login-wrapper">
+        <div class="login-box">
+      
+      
+          <h2>Hot Beans Application</h2>
+
+    <div class="form-group">
+      <label for="first_name">First Name:</label>
+      <input type="text" id="first_name" name="first_name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="surname">Surname:</label>
+      <input type="text" id="surname" name="surname" required>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone No:</label>
+      <input type="text" id="phone" name="phone" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address:</label>
+      <input type="text" id="email" name="email" required>
+    </div>
+
+
+    <label>Have you been a UK Citizen for more than 2 years and 2 months?</label>
+    <div class="radio-buttons">
+      <input type="radio" id="citizen-yes" name="citizen" value="yes">
+      <label for="citizen-yes">Yes</label>
+    
+      <input type="radio" id="citizen-no" name="citizen" value="no">
+      <label for="citizen-no">No</label>
+    </div>
+    
+    <label>Are you / Have you been employed to any workplace within the UK?</label>
+    <div class="radio-buttons">
+      <input type="radio" id="employed-yes" name="employed" value="yes">
+      <label for="employed-yes">Yes</label>
+    
+      <input type="radio" id="employed-no" name="employed" value="no">
+      <label for="employed-no">No</label>
+    </div>
+    
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+    </div>
+    
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        required
+        pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}"
+        title="Password must be at least 8 characters, include uppercase, lowercase, and a number."
+      >
+      <small class="password-rules">
+        Must be at least 8 characters and include: uppercase, lowercase, and a number.
+      </small>
+    </div>
+
+    <button type="submit" class="login-button">Save Data</button>
+  </form>
+        </div>
+  <script>
+    window.addEventListener("scroll", function () {
+        const header = document.getElementById("navbar");
+        
+        if (window.scrollY > 80) {
+            header.classList.add("shrink");
+        } else {
+            header.classList.remove("shrink");
+        }
+    });
+    </script>
+    <footer>
+        <p>Hot Beans Webstie PLC</p>
+    </footer>
+</body>
+</html>

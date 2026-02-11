@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Team — click expand profile</title>
+<style>
+  :root{
+    --card-gap: 1rem;
+    --card-radius: 12px;
+    --shadow: 0 6px 20px rgba(10,10,10,0.08);
+    --accent: #0b74de;
+    --bg: #f7f8fb;
+  }
+  body{
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    margin: 2rem;
+    background: var(--bg);
+    color: #111827;
+  }
+
+  .team-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap: var(--card-gap);
+  }
+
+  .person-card{
+    background: white;
+    border-radius: var(--card-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    position: relative;
+    transition: transform .18s ease;
+  }
+  .person-card:focus-within,
+  .person-card:hover { transform: translateY(-3px); }
+
+  .person-brief{
+    display: grid;
+    grid-template-columns: 86px 1fr;
+    gap: 12px;
+    padding: 12px;
+    align-items: center;
+  }
+
+  .person-photo{
+    width: 86px;
+    height: 86px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: block;
+  }
+
+  .person-name{ font-weight: 600; font-size: 1rem; margin: 0; }
+  .person-role{ color: #6b7280; font-size: .9rem; margin-top: 4px; }
+
+  /* Expandable panel (hidden by default) */
+  .profile-panel{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .34s cubic-bezier(.2,.9,.3,1), padding .2s;
+    padding: 0 12px;
+    background: #fff;
+  }
+  .profile-panel.open{
+    padding: 12px;
+    max-height: 1000px; /* large enough to animate open */
+  }
+
+  .profile-body{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    color: #374151;
+  }
+
+  .profile-meta{ font-size: .9rem; color: #6b7280; }
+  .close-btn{
+    background: transparent;
+    border: none;
+    color: var(--accent);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 8px;
+  }
+
+  /* Simple responsive tweaks */
+  @media (min-width: 900px){
+    .profile-panel.open{
+      max-height: 600px;
+    }
+  }
+
+  /* small accessible focus styles */
+  button:focus, a:focus { outline: 3px solid rgba(11,116,222,.18); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<h1>Meet the team</h1>
+
+<div class="team-grid" id="teamGrid" aria-live="polite">
+  <!-- Each card may include a data-profile attribute with the ID of the full content, or a data-url to fetch it -->
+  <article class="person-card" data-id="p1">
+    <div class="person-brief">
+      <img src="https://picsum.photos/seed/p1/200/200" alt="Portrait of Emma Walton" class="person-photo" tabindex="0" role="button" aria-expanded="false" aria-controls="profile-p1" data-action="toggle" />
+      <div>
+        <p class="person-name">Emma Walton</p>
+        <p class="person-role">Head of Production</p>
+      </div>
+    </div>
+
+    <!-- This element contains the full profile content; you could also lazy-load via data-url -->
+    <div class="profile-panel" id="profile-p1" role="region" aria-hidden="true">
+      <div class="profile-body" data-full>
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <h2 style="margin:.2rem 0;">Emma Walton</h2>
+            <div class="profile-meta">Head of Production · emma@company.example</div>
+          </div>
+          <div>
+            <button class="close-btn" aria-controls="profile-p1" data-action="close">Close ✕</button>
+          </div>
+        </div>
+
+        <p><strong>Bio</strong> — Emma leads production with 15 years experience managing broadcast and studio projects. She coordinates editorial, scheduling, and tech operations.</p>
+
+        <p><strong>Experience</strong> — Previously: Channel Nine, StudioWorks; Holds an MA in Media Production.</p>
+
+        <p><strong>Favourite quote</strong> — “If it works on time, it’s art.”</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- Another example card using lazy fetch (simulated here) -->
+  <article class="person-card" data-id="p2" data-url="/data/profiles/p2.json">
+    <div class="person-brief">
+      <img src="https://picsum.photos/seed/p2/200/200" alt="Portrait of Mark Leung" class="person-photo" tabindex="0" role="button" aria-expanded="false" aria-controls="profile-p2" data-action="toggle" />
+      <div>
+        <p class="person-name">Mark Leung</p>
+        <p class="person-role">Senior Developer</p>
+      </div>
+    </div>
+    <div class="profile-panel" id="profile-p2" role="region" aria-hidden="true">
+      <!-- Empty now; will be filled by JS when opened -->
+      <div class="profile-body" data-full></div>
+    </div>
+  </article>
+
+  <!-- Put as many cards as you want... -->
+</div>
+
+<script>
+/*
+Behavior:
+- Click or press Enter/Space on .person-photo toggles the associated profile panel.
+- panel content can be inline (exists in DOM) or fetched from data-url on the article.
+- ESC closes the open panel.
+- Only one panel open at a time.
+- ARIA: aria-expanded on the clickable element, aria-hidden on panel region.
+*/
+
+(function(){
+  const grid = document.getElementById('teamGrid');
+
+  // Helper: find the article element for a clicked node
+  function findCard(node){
+    return node.closest('.person-card');
+  }
+
+  // Close any open panel except optional keepId
+  function closeAll(keepId){
+    document.querySelectorAll('.profile-panel.open').forEach(panel=>{
+      if(panel.id === keepId) return;
+      togglePanel(panel, false);
+    });
+  }
+
+  function togglePanel(panel, wantOpen){
+    const wasOpen = panel.classList.contains('open');
+    const open = (typeof wantOpen === 'boolean') ? wantOpen : !wasOpen;
+
+    // linked button(s) that control this panel:
+    const controllers = document.querySelectorAll(`[aria-controls="${panel.id}"]`);
+    if(open){
+      panel.classList.add('open');
+      panel.setAttribute('aria-hidden','false');
+      controllers.forEach(c=> c.setAttribute('aria-expanded','true'));
+      // ensure existing content is visible and focusable
+      // Move focus into the panel (to first focusable or close button)
+      const closeBtn = panel.querySelector('[data-action="close"]');
+      if(closeBtn) closeBtn.focus();
+    } else {
+      panel.classList.remove('open');
+      panel.setAttribute('aria-hidden','true');
+      controllers.forEach(c=> c.setAttribute('aria-expanded','false'));
+      // return focus to the controller (first controller)
+      if(controllers[0]) controllers[0].focus();
+    }
+  }
+
+  // populate panel: inline or via fetch
+  async function ensurePanelContent(article, panel){
+    const body = panel.querySelector('[data-full]');
+    if(!body) return;
+    // If body already has textContent, assume it's filled
+    if(body.innerHTML.trim().length > 0) return;
+    // else attempt to fetch from data-url on article
+    const url = article.getAttribute('data-url');
+    if(!url) {
+      body.innerHTML = '<p>No profile content available.</p>';
+      return;
+    }
+
+    // You can replace this with a real fetch. For demo we simulate fetch delay.
+    try {
+      // Example of doing a real fetch:
+      // const res = await fetch(url, {credentials: 'same-origin'});
+      // if(!res.ok) throw new Error('Fetch failed');
+      // const json = await res.json();
+      // build markup based on json...
+      // For this demo we'll simulate:
+      await new Promise(r => setTimeout(r, 350)); // simulate network
+      // Simulated content
+      body.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h2 style="margin:.2rem 0;">Mark Leung</h2>
+            <div class="profile-meta">Senior Developer · mark@company.example</div>
+          </div>
+          <div>
+            <button class="close-btn" aria-controls="${panel.id}" data-action="close">Close ✕</button>
+          </div>
+        </div>
+        <p><strong>Bio</strong> — Mark builds internal tools and web platforms. He specialises in front-end performance and accessibility.</p>
+        <p><strong>Tech</strong> — JS, Node, React, DevOps, test automation.</p>
+      `;
+    } catch(err){
+      body.innerHTML = `<p class="profile-meta">Failed to load profile. Please try again later.</p>`;
+    }
+  }
+
+  // click handler using event delegation
+  grid.addEventListener('click', async (ev) => {
+    const actionTarget = ev.target.closest('[data-action]');
+    if(!actionTarget) return;
+    const action = actionTarget.getAttribute('data-action');
+    const card = findCard(actionTarget);
+    if(!card) return;
+    const panelId = actionTarget.getAttribute('aria-controls');
+    const panel = document.getElementById(panelId);
+    if(!panel) return;
+
+    if(action === 'toggle'){
+      // ensure content
+      await ensurePanelContent(card, panel);
+      // close others
+      closeAll(panel.id);
+      togglePanel(panel);
+    } else if(action === 'close'){
+      togglePanel(panel, false);
+    }
+  });
+
+  // keyboard support: Enter/Space on photo toggles; Esc closes any open panel
+  grid.addEventListener('keydown', async (ev) => {
+    const kc = ev.key;
+    if(kc === 'Escape'){
+      closeAll();
+      return;
+    }
+    // If the focused element is a controller with data-action toggle
+    const active = document.activeElement;
+    if(active && active.matches('[data-action="toggle"]') && (kc === 'Enter' || kc === ' ')){
+      ev.preventDefault();
+      // emulate click
+      active.click();
+    }
+  });
+
+  // Close any open panel when clicking outside
+  document.addEventListener('click', (ev) => {
+    // if click is inside any .person-card that's fine
+    if(ev.target.closest('.person-card')) return;
+    closeAll();
+  });
+
+  // Optional: close open panels when user navigates via back/forward using history state
+  // (not necessary, but helpful if you want deep-linking / back button)
+})();
+</script>
+</body>
+</html>

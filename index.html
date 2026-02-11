@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Beans Homepage</title>
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet'>
+</head>
+
+<body>
+
+    <header id="navbar">
+        <div class="logo-container">
+            <a href="index.html"> <img id="logo" src="Images/hotbeans.png"></a>
+            <h1>Hot Beans Website</h1>
+        </div>
+
+        <nav>
+            <a href="team.html">Meet the Team</a>
+            <a href="apply.html">Apply</a>
+            <a href="courses.html">Courses</a> 
+            <a href="jobspec.html">Job Specifications</a>
+        </nav>
+    </header>
+
+    <div class="content-wrapper">
+
+        <div class="about">
+            <strong><h2>Who are we?</h2></strong>
+            <p>At Hot Beans, we’re passionate about sparking digital innovation — one pixel at a time. Founded in 2015 by a small team of designers and developers obsessed with performance and aesthetics, we’ve grown into a full-service web-development studio
+                that blends creativity, cutting-edge technology, and intelligent strategy to help businesses thrive online.</strong>
+            </p>
+
+            <p>Our mission is simple: we build blazing-fast, beautifully designed websites that deliver results. Whether you’re a startup looking to make a bold first impression, a growing business needing scalability, or an established company ready to
+                modernize, our team turns ideas into powerful digital experiences.</p>
+
+            <strong><h3>We specialize in:</h3></strong>
+            <ul>
+                <li>Custom Web Design & Development</li>
+                <li>UX/UI Design</li>
+                <li>E-commerce Solutions</li>
+                <li>Web Performance Optimization</li>
+                <li>Ongoing Maintenance & Support</li>
+            </ul>
+
+            <p><strong>At Hot Beans, collaboration is at our core. We work closely with clients — listening,
+        brainstorming, and iterating to craft the perfect blend of form and function.</p>
+    </div>
+
+    <div class="picture-container">
+        <img src="Images/web-dev.jpg" alt="Code Image"> 
+    </div>
+
+</div>
+
+
+<div style="padding: 40px 100px;">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2759.7967548520605!2d-119.12729372324391!3d46.23438638172181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54987f3612043831%3A0x6a5e47d8445156b3!2sHot%20Beans%20Espresso!5e0!3m2!1sen!2suk!4v1763647999096!5m2!1sen!2suk"  width="930" height="550" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </iframe>
+    <iframe width="700px" height="550px" src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=AMQYmzQFc0inAALKA4M2qHpCOtza9bJGjOTGJV4b3UdUOVZaUVRNRUNBVjRaS05aVUJIQ0FMUjJKQi4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen> </iframe>
+</div>
+
+
+<script>
+window.addEventListener("scroll", function () {
+    const header = document.getElementById("navbar");
+    
+    if (window.scrollY > 80) {
+        header.classList.add("shrink");
+    } else {
+        header.classList.remove("shrink");
+    }
+});
+</script>
+<footer>
+    <p>Hot Beans Webstie PLC</p>
+</footer>
+</body>
+</html>

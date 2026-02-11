@@ -1,0 +1,141 @@
+body {
+    margin: 0;
+    font-family: 'Muli';
+    color: #333;
+    background-image: url(Images/yellow-design.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-inline: 30px; 
+    padding-top: 150px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: white;
+    padding-right: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 30px solid red;
+    background-image: url(Images/yellow-design.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: padding 0.3s ease;
+
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-right: 30px;
+}
+
+.logo-container img {
+    height: 70px;
+    width: auto;
+    transition: height 0.3s ease;
+}
+
+header h1 {
+    color: #DD0303;
+    font-size: 24px;
+    margin: 0;
+    transition: font-size 0.3s ease;
+    padding-right: 30px;
+}
+
+header.shrink {
+    padding: 10px;
+}
+
+header.shrink .logo-container img {
+    height: 45px;
+}
+
+header.shrink h1 {
+    font-size: 18px;
+}
+
+nav a {
+    color: grey;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 24px;
+    transition: color 0.3s ease, font-size 0.3s ease;
+    padding-right: 30px;
+}
+
+nav a:hover {
+    color: red;
+}
+
+header.shrink nav a {
+    font-size: 14px;
+    padding-right: 30px;
+}
+  
+  .courses-container {
+    width: 260px;             
+    height: 100vh;
+    background-image: url(Images/yellow-design.jpg);
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e5e5e5;
+  }
+  
+  .courses-title {
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .courses-menu {
+    width: 100%;
+  }
+  
+  .courses-btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s ease, padding-left 0.15s ease;
+  }
+  
+  .courses-btn:last-child {
+    border-bottom: none;
+  }
+  
+  .courses-btn:hover {
+    background: #f5f5f5;
+    padding-left: 22px;
+  }
+  
+  .courses-btn:active {
+    transform: scale(0.98);
+  }
+  
+  .courses-btn:focus-visible {
+    outline: 2px solid #4a90e2;
+    background: #eef5ff;
+  }
+  
+  .chevron {
+    font-size: 18px;
+    opacity: 0.4;
+  }
+  

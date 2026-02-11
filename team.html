@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="team.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Beans (Meet the Team)</title>
+    <link href='https://fonts.googleapis.com/css?family=Muli' rel='stylesheet'>
+</head>
+
+<body>
+
+    <header id="navbar">
+        <div class="logo-container">
+            <a href="index.html"> <img id="logo" src="Images/hotbeans.png"></a>
+            <h1>Hot Beans Website</h1>
+        </div>
+
+        <nav>
+            <a href="team.html">Meet the Team</a>
+            <a href="apply.html">Apply</a>
+            <a href="courses.html">Courses</a>
+            <a href="jobspec.html">Job Specifications</a>
+        </nav>
+    </header>
+
+    <strong><h1>Our team</h1></strong>
+    
+    <div class="teamtxt-container">
+        <p>
+        Welcome to Meet the Team, where collaboration and shared purpose drive everything we do. Our business thrives on the strength of individuals working together, combining their unique skills, perspectives, and talents to achieve common goals. By communicating
+        openly and supporting one another, our team creates an environment where ideas flourish and challenges are tackled with confidence. This spirit of unity not only fuels innovation and productivity but also builds a positive workplace culture
+        where every member feels valued, connected, and empowered.
+        </p>
+    </div>
+
+    <div id="flexcontainer">
+        <div class="teampic-container1">
+            <img src="Images/person1.png" width="100%" height="300">
+            <caption>
+                <strong>Name:</strong> Emily Watson
+                <br>
+                <strong>Role:</strong> Front-End Developer
+                <br>
+                <strong>Email:</strong> emilywatson12@hotbeans.co.uk
+                <br>
+            </caption>
+        </div>
+
+        <div class="teampic-container2">
+            <img src="Images/person2.png" width="100%" height="300">
+            <caption>
+                <strong>Name:</strong> Tim Cheese
+                <br>
+                <strong>Role:</strong> Back-End Developer
+                <br>
+                <strong>Email:</strong> timcheese67@hotbeans.co.uk
+                <br>
+            </caption>
+        </div>
+
+        <div class="teampic-container3">
+            <img src="Images/person3.png" width="100%" height="300">
+            <caption>
+                <strong>Name:</strong> Adrien Morales
+                <br>
+                <strong>Role:</strong> Director of Computing Engineering
+                <br>
+                <strong>Email:</strong> adrienmorales5@hotbeans.co.uk
+                <br>
+            </caption>
+        </div>
+        <div class="teampic-container4">
+            <img src="Images/person4.png" width="100%" height="300">
+            <caption>
+                <strong>Name:</strong> Xiao Ling
+                <br>
+                <strong>Role:</strong> Director of Computing Engineering
+                <br>
+                <strong>Email:</strong> xaioling25@hotbeans.co.uk
+                <br>
+            </caption>
+    </div>
+    
+
+    <script>
+        window.addEventListener("scroll", function () {
+            const header = document.getElementById("navbar");
+            
+            if (window.scrollY > 80) {
+                header.classList.add("shrink");
+            } else {
+                header.classList.remove("shrink");
+            }
+        });
+        </script>
+
+        <footer>
+            <p>Hot Beans Webstie PLC</p>
+        </footer> 
+</body>
+
+</html>
